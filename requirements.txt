@@ -1,0 +1,8 @@
+python-dotenv
+faiss-cpu
+tiktoken
+langchain-community
+pypdf
+PyPDF2
+#langchain-openai==0.1.20
+openai
