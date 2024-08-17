@@ -7,3 +7,5 @@ PyPDF2
 langchain_openai
 pandas
 pinecone
+langchain_pinecone
+sentence-transformers
