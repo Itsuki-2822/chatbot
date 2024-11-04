@@ -10,4 +10,5 @@ pinecone
 langchain_pinecone
 sentence-transformers
 streamlit
+gunicorn
 flask
