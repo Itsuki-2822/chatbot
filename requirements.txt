@@ -10,3 +10,4 @@ pinecone
 langchain_pinecone
 sentence-transformers
 streamlit
+flask
