@@ -105,7 +105,7 @@ for message in st.session_state.messages:
 # User input handling
 if prompt := st.chat_input("何でも聞いてください！"):
     # Display user message
-    st.chat_message("user", avatar_alignment="right").markdown(prompt)
+    st.chat_message("user").markdown(prompt)
     # Add user message to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
 
@@ -115,7 +115,8 @@ if prompt := st.chat_input("何でも聞いてください！"):
         response = f"{answer}"
 
     # Display assistant message
-    st.chat_message("user").markdown(prompt)
+    with st.chat_message("assistant", avatar_alignment="left"):
+        st.markdown(response)
 
     # Add assistant message to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
