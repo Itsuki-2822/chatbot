@@ -8,6 +8,9 @@ from langchain.chains import RetrievalQA
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from pinecone import Pinecone
+from google.oauth2 import service_account
+from io import BytesIO
+from googleapiclient.discovery import build
 
 # Load environment variables
 load_dotenv()
@@ -17,8 +20,24 @@ os.environ["OPENAI_API_KEY"] = openai_api_key
 pinecone_api_key = os.getenv('PINECONE_API_KEY')
 os.environ["PINECONE_API_KEY"] = pinecone_api_key
 
-# Load data
-df = pd.read_csv('data/my_profile.csv', header=None, names=['text', 'Category'])
+credentials = service_account.Credentials.from_service_account_info({
+    "type": os.getenv("GOOGLE_TYPE"),
+    "project_id": os.getenv("GOOGLE_PROJECT_ID"),
+    "private_key_id": os.getenv("GOOGLE_PRIVATE_KEY_ID"),
+    "private_key": os.getenv("GOOGLE_PRIVATE_KEY").replace("\\n", "\n"),
+    "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),
+    "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+    "auth_uri": os.getenv("GOOGLE_AUTH_URI"),
+    "token_uri": os.getenv("GOOGLE_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("GOOGLE_AUTH_PROVIDER_X509_CERT_URL"),
+    "client_x509_cert_url": os.getenv("GOOGLE_CLIENT_X509_CERT_URL")
+})
+
+service = build('drive', 'v3', credentials=credentials)
+file_id = os.getenv('FILE_ID')
+request = service.files().get_media(fileId=file_id)
+file_data = BytesIO(request.execute())
+df = pd.read_csv(file_data)
 
 # Create embeddings
 embeddings = OpenAIEmbeddings()
