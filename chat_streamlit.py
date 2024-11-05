@@ -115,7 +115,7 @@ if prompt := st.chat_input("何でも聞いてください！"):
         response = f"{answer}"
 
     # Display assistant message
-    st.chat_message("user").markdown(prompt)
+    #st.chat_message("user").markdown(prompt)
 
     # Display assistant message
     with st.chat_message("assistant"):
