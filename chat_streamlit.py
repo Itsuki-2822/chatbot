@@ -115,7 +115,10 @@ if prompt := st.chat_input("何でも聞いてください！"):
         response = f"{answer}"
 
     # Display assistant message
-    with st.chat_message("assistant", avatar_alignment="left"):
+    st.chat_message("user").markdown(prompt)
+
+    # Display assistant message
+    with st.chat_message("assistant"):
         st.markdown(response)
 
     # Add assistant message to chat history
