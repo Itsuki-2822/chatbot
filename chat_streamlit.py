@@ -37,7 +37,7 @@ service = build('drive', 'v3', credentials=credentials)
 file_id = os.getenv('FILE_ID')
 request = service.files().get_media(fileId=file_id)
 file_data = BytesIO(request.execute())
-df = pd.read_csv(file_data)
+df = pd.read_csv(file_data, header=None, names=['text', 'Category'])
 
 # Create embeddings
 embeddings = OpenAIEmbeddings()
