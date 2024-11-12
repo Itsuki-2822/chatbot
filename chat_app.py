@@ -95,6 +95,17 @@ qa = RetrievalQA.from_chain_type(
 # FastAPI setup
 app = FastAPI()
 
+
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 特定のURLがある場合はそのURLに変更
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class ChatRequest(BaseModel):
     query: str
 
